@@ -9,6 +9,9 @@ app.use("/role",RoleRoutes)
 const UserRoutes = require("./src/router/UserRouter")
 app.use("/user",UserRoutes)
 
+const VendorRoutes = require("./src/router/VendorRouter")
+app.use("/vendor",VendorRoutes)
+
 const db = mongoose.connect("mongodb://127.0.0.1:27017/Drone_Management_System")
 db.then((data) => {
     console.log("DB Connected")
