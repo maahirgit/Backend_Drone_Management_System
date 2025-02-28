@@ -1,4 +1,4 @@
-const droneSchema = require("../model/DroneModel")
+const vendorSchema = require("../model/DroneModel")
 const multer = require('multer')
 const CloudinaryController = require("../controller/CloudinaryController")
 
@@ -51,4 +51,8 @@ const addVendor = async(req,res) => {
             message : e
         })
     }
+}
+
+module.exports = {
+    addVendor
 }
