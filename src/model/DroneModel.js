@@ -12,10 +12,10 @@ const droneSchema = new Schema({
         type : String
     },
     Price_per_hour : {
-        type : String
+        type : Number
     },
     Price_per_day : {
-        type : String
+        type : Number
     },
     Availability : {
         type : Boolean
