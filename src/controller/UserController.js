@@ -22,21 +22,26 @@ const createUser = async(req,res) => {
 const loginUser = async(req,res) => {
     const email = req.body.Email;
     const password = req.body.Password;
-    const employeebyemail = await userSchema.findOne({Email : email})
 
-    if(employeebyemail){
-        const isMatch = await hashedPassword.comparePassword(password,employeebyemail.Password)
-        if(isMatch){
-        res.status(200).json({
-            message : "User Login Successful"
-        })
-        }
-        else{
-            res.status(200).json({
-                message : "User Login Unsuccessful"
-            })
-        }
+    const user = await userSchema.findOne({ Email: email });
+
+    if (!user) {
+        return res.status(404).json({
+            message: "User not found. Please register first.",
+        });
     }
+
+    const isMatch = await hashedPassword.comparePassword(password, user.Password);
+
+    if (!isMatch) {
+        return res.status(401).json({
+            message: "Incorrect password. Please try again.",
+        });
+    }
+
+    return res.status(200).json({
+        message: "User Login Successful",
+    });
     
 }
 module.exports = {
