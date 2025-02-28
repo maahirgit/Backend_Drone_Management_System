@@ -16,6 +16,9 @@ app.use("/user",UserRoutes)
 const DroneRoutes = require("./src/router/DroneRouter")
 app.use("/drone",DroneRoutes)
 
+const CartRoutes = require("./src/router/CartRouter")
+app.use("/cart",CartRoutes)
+
 const db = mongoose.connect("mongodb://127.0.0.1:27017/Drone_Management_System")
 db.then((data) => {
     console.log("DB Connected")
