@@ -36,6 +36,11 @@ const loginUser = async(req,res) => {
                 message : "User Login Unsuccessful"
             })
         }
+    }else
+    {
+        res.status(200).json({
+            message: "user not login "
+        })
     }
     
 }
