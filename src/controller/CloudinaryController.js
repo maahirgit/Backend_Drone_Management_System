@@ -2,13 +2,13 @@ const cloudnary = require("cloudinary").v2;
 
 const uploadFileinCloudnary = async (file) => {
   cloudnary.config({
-    cloud_name: "dpjoxqisl",
-    api_key: "292199526794599",
-    api_secret: "KKZHWhEwjA1Q0zUx4gVfcsvcVRY",
+    cloud_name: "dnklrceyc",
+    api_key: "687117512481165",
+    api_secret: "BybWuJQqGr_nuXpfHYEi_VTHcJE",
   });
 
-  const response = await cloudnary.uploader.upload(file);
+  const response = await cloudnary.uploader.upload(file.path);
 
   return response;
 };
-module.exports=uploadFileinCloudnary
+module.exports={uploadFileinCloudnary}

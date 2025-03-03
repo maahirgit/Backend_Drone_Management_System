@@ -11,9 +11,6 @@ const droneSchema = new Schema({
     Drone_description : {
         type : String
     },
-    Price_per_hour : {
-        type : Number
-    },
     Price_per_day : {
         type : Number
     },
