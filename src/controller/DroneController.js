@@ -11,7 +11,7 @@ const Storage = multer.diskStorage({
 const upload = multer({
     storage : Storage,
     limits : {fileSize : 10000000}
-}).single('Images')
+}).array('Images',5)
 
 const addDrone = async(req,res) => {
     try{

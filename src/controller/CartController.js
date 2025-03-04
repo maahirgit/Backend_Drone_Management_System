@@ -50,7 +50,7 @@ const removeproduct = async(req,res) => {
     
 }
 
-const getCartByUser = async (req, res) => {
+/* const getCartByUser = async (req, res) => {
     try {
         const { User_id } = req.params;
 
@@ -64,7 +64,7 @@ const getCartByUser = async (req, res) => {
     } catch (error) {
         res.status(500).json({ message: "Error fetching cart", error: error.message });
     }
-};
+}; */
 module.exports = {
     createCart
 };
