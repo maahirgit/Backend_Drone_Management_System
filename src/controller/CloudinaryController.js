@@ -1,4 +1,4 @@
-const cloudnary = require("cloudinary").v2;
+  const cloudnary = require("cloudinary").v2;
 
 const uploadFileinCloudnary = async (file) => {
   cloudnary.config({

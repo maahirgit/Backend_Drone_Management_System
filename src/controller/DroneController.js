@@ -10,7 +10,7 @@ const Storage = multer.diskStorage({
 
 const upload = multer({
     storage : Storage,
-    limits : {fileSize : 10000000}
+    limits : {fileSize : 1000000000}
 }).single('Images')
 
 const addDrone = async(req,res) => {
@@ -27,6 +27,7 @@ const addDrone = async(req,res) => {
                 const drone_name = req.body.Drone_name
                 const drone_brand = req.body.Drone_brand
                 const drone_description = req.body.Drone_description
+                const price_per_hour = req.body.Price_per_hour
                 const price_per_day = req.body.Price_per_day
                 const availability = req.body.Availability
 
@@ -34,6 +35,7 @@ const addDrone = async(req,res) => {
                     Drone_name : drone_name,
                     Drone_brand : drone_brand,
                     Drone_description : drone_description,
+                    Price_per_hour : price_per_hour,
                     Price_per_day : price_per_day,
                     Availability : availability,
                     Images : droneimage
