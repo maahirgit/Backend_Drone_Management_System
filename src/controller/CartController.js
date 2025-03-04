@@ -46,9 +46,13 @@ const createCart = async (req, res) => {
     }
 };
 
-// const getCartByUser = async (req, res) => {
-//     try {
-//         const { User_id } = req.params;
+const removeproduct = async(req,res) => {
+    
+}
+
+const getCartByUser = async (req, res) => {
+    try {
+        const { User_id } = req.params;
 
 //         if (!User_id) {
 //             return res.status(400).json({ message: "User ID is required" });
@@ -56,12 +60,11 @@ const createCart = async (req, res) => {
 
 //         const cartItems = await cartSchema.find({ User_id });
         
-//         res.status(200).json(cartItems);
-//     } catch (error) {
-//         res.status(500).json({ message: "Error fetching cart", error: error.message });
-//     }
-// };
-
+        res.status(200).json(cartItems);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching cart", error: error.message });
+    }
+};
 module.exports = {
     createCart    
 };
