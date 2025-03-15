@@ -46,9 +46,27 @@ const createCart = async (req, res) => {
     }
 };
 
+const getCart = async(req,res) =>{
+    const id1 = req.params.id
+    const saved = await cartSchema.findById(id1).populate("User_id").populate("Drone_id")
+
+    if(saved){
+        res.status(200).json({
+            message : "Cart Fetched Successfully",
+            data : saved
+        })
+    }
+    else{
+        res.status(403).json({
+            message : "Error In Fetching Cart"
+        })
+    }
+
+}
 
 
 
 module.exports = {
-    createCart
+    createCart,
+    getCart
 };

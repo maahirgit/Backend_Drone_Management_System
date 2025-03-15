@@ -8,7 +8,7 @@ const cartSchema = new Schema({
     },
     Drone_id: {
         type: Schema.Types.ObjectId,
-        ref: 'Drone_Details'
+        ref: 'Drone_details'
     },
     Start_date: {
         type: Date,

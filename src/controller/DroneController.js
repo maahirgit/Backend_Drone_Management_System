@@ -53,6 +53,23 @@ const addDrone = async(req,res) => {
     }
 }
 
+const getDrone = async(req,res) => {
+    const saved = await droneSchema.find()
+
+    if(saved){
+        res.status(200).json({
+            message : "Drones Fetched Successfullly",
+            data : saved
+        })
+    }
+    else{
+        res.status(401).json({
+            message : "Error in fetching drones"
+        })
+    }
+}
+
 module.exports = {
-    addDrone
+    addDrone,
+    getDrone
 }
