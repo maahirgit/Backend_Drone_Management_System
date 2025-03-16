@@ -11,7 +11,7 @@ const Storage = multer.diskStorage({
 const upload = multer({
     storage : Storage,
     limits : {fileSize : 10000000}
-}).array('Images',5)
+}).single('Images')
 
 const addDrone = async(req,res) => {
     try{
@@ -22,7 +22,7 @@ const addDrone = async(req,res) => {
                 })
             }
             else{
-                const cloudres = await CloudinaryController.uploadFileinCloudnary(req.file)
+               const cloudres = await CloudinaryController.uploadFileinCloudnary(req.file)
                 const droneimage = cloudres.secure_url
                 const drone_name = req.body.Drone_name
                 const drone_brand = req.body.Drone_brand
