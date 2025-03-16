@@ -53,7 +53,8 @@ const addDrone = async (req, res) => {
       console.log("Server Error:", e);
       return res.status(500).json({ message: "Internal Server Error", error: e.message });
     }
-  });
-};
+}
 
-module.exports = { addDrone };
+module.exports = {
+    addDrone
+}

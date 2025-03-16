@@ -1,7 +1,7 @@
-  const cloudnary = require("cloudinary").v2;
+const cloudnary = require("cloudinary").v2;
 
 const uploadFileinCloudnary = async (file) => {
-  cloudnary.config({
+  cloudinary.config({
     cloud_name: "dnklrceyc",
     api_key: "687117512481165",
     api_secret: "BybWuJQqGr_nuXpfHYEi_VTHcJE",
