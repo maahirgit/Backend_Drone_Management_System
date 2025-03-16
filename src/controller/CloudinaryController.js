@@ -1,4 +1,4 @@
-const cloudnary = require("cloudinary").v2;
+const cloudinary = require("cloudinary").v2;
 
 const uploadFileinCloudnary = async (file) => {
   cloudinary.config({
@@ -7,7 +7,7 @@ const uploadFileinCloudnary = async (file) => {
     api_secret: "BybWuJQqGr_nuXpfHYEi_VTHcJE",
   });
 
-  const response = await cloudnary.uploader.upload(file.path);
+  const response = await cloudinary.uploader.upload(file.path);
 
   return response;
 };

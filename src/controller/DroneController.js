@@ -1,60 +1,75 @@
-const droneSchema = require("../model/DroneModel");
-const multer = require("multer");
-const CloudinaryController = require("../controller/CloudinaryController");
+const droneSchema = require("../model/DroneModel")
+const multer = require('multer')
+const CloudinaryController = require("../controller/CloudinaryController")
 
 const Storage = multer.diskStorage({
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
-});
+    filename : function(req,file,cb){
+        cb(null,file.originalname)
+    }
+})
 
 const upload = multer({
-  storage: Storage,
-  limits: { fileSize: 10000000 },
-}).single("Images");
+    storage : Storage,
+    limits : {fileSize : 10000000}
+}).single('Images')
 
-const addDrone = async (req, res) => {
-  upload(req, res, async (err) => {
-    if (err) {
-      console.log("Multer error:", err);
-      return res.status(500).json({ message: "File upload failed", error: err });
+const addDrone = async(req,res) => {
+    try{
+        upload(req,res,async(err) => {
+            if(err){
+                res.status(500).json({
+                    messgage : err
+                })
+            }
+            else{
+               const cloudres = await CloudinaryController.uploadFileinCloudnary(req.file)
+                const droneimage = cloudres.secure_url
+                const drone_name = req.body.Drone_name
+                const drone_brand = req.body.Drone_brand
+                const drone_description = req.body.Drone_description
+                const price_per_day = req.body.Price_per_day
+                const availability = req.body.Availability
+
+                const uploadObj = {
+                    Drone_name : drone_name,
+                    Drone_brand : drone_brand,
+                    Drone_description : drone_description,
+                    Price_per_day : price_per_day,
+                    Availability : availability,
+                    Images : droneimage
+                }
+
+                const saved = await droneSchema.create(uploadObj)
+
+                res.status(201).json({
+                    data : saved
+                })
+            }
+        })
+    }catch(e){
+        res.status(404).json({
+            message : e
+        })
     }
+}
 
-    try {
-      if (!req.file) {
-        return res.status(400).json({ message: "No image uploaded" });
-      }
+const getDrone = async(req,res) => {
+    const saved = await droneSchema.find()
 
-      // Upload image to Cloudinary
-      const cloudres = await CloudinaryController.uploadFileinCloudnary(req.file);
-      const droneimage = cloudres.secure_url;
-
-      const { Drone_name, Drone_brand, Drone_description, Price_per_hour, Price_per_day, Availability } = req.body;
-
-      if (!Drone_name || !Drone_brand || !Drone_description || !Price_per_day || !Availability) {
-        return res.status(400).json({ message: "All fields are required" });
-      }
-
-      const uploadObj = {
-        Drone_name,
-        Drone_brand,
-        Drone_description,
-        Price_per_hour: Price_per_hour || 0, // Default value if not provided
-        Price_per_day,
-        Availability,
-        Images: droneimage,
-      };
-
-      console.log("Uploading to DB:", uploadObj);
-      const saved = await droneSchema.create(uploadObj);
-
-      return res.status(201).json({ data: saved });
-    } catch (e) {
-      console.log("Server Error:", e);
-      return res.status(500).json({ message: "Internal Server Error", error: e.message });
+    if(saved){
+        res.status(200).json({
+            message : "Drones Fetched Successfullly",
+            data : saved
+        })
+    }
+    else{
+        res.status(401).json({
+            message : "Error in fetching drones"
+        })
     }
 }
 
 module.exports = {
-    addDrone
+    addDrone,
+    getDrone
 }
