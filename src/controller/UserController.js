@@ -48,7 +48,7 @@ const loginUser = async (req, res) => {
 
         const populatedData = await tokenSchema.findById(setdata._id).populate("userId");
 
-        res.status(200).json({ message: "Login Successful", data: populatedData });
+        res.status(200).json({ message: "Login Successful", data: user._id });
         // res.status(200).json({ message: "Login Successful", setdata });
     } catch (error) {
         res.status(500).json({ message: "Error during login." });
@@ -82,6 +82,16 @@ const getUser = async (req, res) => {
     }
 };
 
+const getUserById = async (req, res) => {
+    try {
+        const data = await userSchema.findById(req.params.id).populate('Role_id');
+        console.log(req.params.id);
+        res.status(200).json({ message: "Users fetched successfully", data });
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({ message: "Error fetching users." });
+    }
+};
 
 const forgotPassword = async (req, res) => {
     try {
@@ -147,4 +157,4 @@ const resetPassword = async (req, res) => {
 }
 
 
-module.exports = { createUser, loginUser, getUser, logoutUser, resetPassword, forgotPassword};
+module.exports = { createUser, loginUser, getUser, logoutUser, resetPassword, forgotPassword, getUserById};
