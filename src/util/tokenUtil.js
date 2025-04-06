@@ -8,4 +8,4 @@ const generateToken = (payload) => {
     return token
 }
 
-return module.exports = {generateToken}
+return module.exports = {generateToken} 

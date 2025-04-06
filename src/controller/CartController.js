@@ -18,6 +18,19 @@ const createCart = async (req, res) => {
             return res.status(400).json({ message: "End date must be after start date" });
         }
 
+
+        const existingCart = await cartSchema.findOne({
+            User_id,
+            Drone_id,
+            $or: [
+                { Start_date: { $lte: endDate }, End_date: { $gte: startDate } }
+            ]
+        });
+
+        if (existingCart) {
+            return res.status(400).json({ message: "Drone already in cart for selected date range" });
+        }
+
         // Calculate total days
         const timeDiff = endDate - startDate; // Difference in milliseconds
         const Total_days = Math.ceil(timeDiff / (1000 * 60 * 60 * 24)); // Convert to days
@@ -46,9 +59,30 @@ const createCart = async (req, res) => {
     }
 };
 
+const getCart = async (req, res) => {
+    try {
+        const userId = req.params.id;
+        const carts = await cartSchema.find({ User_id: userId }).populate("Drone_id");
+
+        if (carts.length > 0) {
+            res.status(200).json({
+                message: "Cart Fetched Successfully",
+                data: carts
+            });
+        } else {
+            res.status(404).json({
+                message: "No items in cart"
+            });
+        }
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching cart", error: error.message });
+    }
+};
+
+
 
 
 
 module.exports = {
-    createCart
+    createCart,getCart
 };
